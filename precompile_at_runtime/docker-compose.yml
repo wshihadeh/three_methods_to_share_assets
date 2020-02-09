@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    command: mysqld --general-log=1 --general-log-file=/var/log/mysql/general-log.log
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dummy
+      MYSQL_DATABASE: rails_blog_production
+
+  rails_blog_web:
+    image: wshihadeh/rails_blog:runtime
+    restart: always
+    command: 'web'
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    volumes:
+      - assets:/application/public
+    environment:
+      DATABASE_URL: mysql2://root:dummy@mysql/rails_blog_production
+
+  web:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    command: server
+    volumes:
+      - assets:/var/www/public
+    ports:
+      - 80:80
+
+volumes:
+  db_data:
+  assets:

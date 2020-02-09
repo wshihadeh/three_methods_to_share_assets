@@ -1,0 +1,33 @@
+# MySQL. Versions 5.5.8 and up are supported.
+#
+# Install the MySQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+#
+default: &default
+  adapter: mysql2
+  encoding: <%= ENV['DB_ENCODING'] || 'utf8' %>
+  pool:     <%= ENV['DB_POOL']     || 25 %>
+  database: <%= ENV['DB_NAME']     || 'rails_blog' %>
+  username: <%= ENV['DB_USERNAME'] || 'root' %>
+  password: <%= ENV['DB_PASSWORD'] || 'dummy' %>
+  host:     <%= ENV['DB_HOST']     || '127.0.0.1' %>
+  socket:   <%= ENV['DB_SOCKET']   || '3306' %>
+
+development:
+  <<: *default
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: <%= ENV['DB_NAME']     || 'rails_blog_testing' %>
+
+production:
+  <<: *default
