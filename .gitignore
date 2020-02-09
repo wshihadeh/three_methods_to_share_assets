@@ -3,3 +3,9 @@ precompile_on_the_host/rails_blog/node_modules/*
 precompile_on_the_host/rails_blog/public/*
 precompile_on_the_host/rails_blog/tmp/*
 precompile_on_the_host/rails_blog/log/*
+
+precompile_during_docker_build/rails_blog/tmp/.keep
+precompile_during_docker_build/rails_blog/node_modules/*
+precompile_during_docker_build/rails_blog/public/*
+precompile_during_docker_build/rails_blog/tmp/*
+precompile_during_docker_build/rails_blog/log/*
